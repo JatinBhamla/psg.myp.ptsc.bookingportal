@@ -1,510 +1,965 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <link rel="icon" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.svg#calendar" type="image/svg+xml"> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="icon" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.svg#calendar" type="image/svg+xml"> -->
 
-  <title>PTSC Booking Portal</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-  
+    <title>PTSC Booking Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-  <style>
-    :root {
-      --primary-blue: #00274d;
-      --secondary-blue: #cfe2ff;
-      --accent-blue: #9ec5fe;
-    }
-    body {
-      background-color: #f8f9fa;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    }
-    .navbar {
-      background-color: var(--primary-blue);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .booking-card {
-      transition: transform 0.2s, box-shadow 0.2s;
-      border: none;
-      border-left: 4px solid var(--primary-blue);
-      background: white;
-    }
-    .booking-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .subject-icon {
-      font-size: 1.5rem;
-      margin-right: 0.75rem;
-    }
-    .accordion-button {
-      background-color: var(--secondary-blue);
-      font-weight: 500;
-      color: var(--primary-blue);
-      border-radius: 8px !important;
-      margin-bottom: 0.5rem;
-    }
-    .accordion-button:not(.collapsed) {
-      background-color: var(--accent-blue);
-      color: var(--primary-blue);
-      box-shadow: none;
-    }
-    .accordion-body {
-      padding: 0;
-    }
-    .department-table {
-      font-size: 0.9rem;
-      margin: 0;
-    }
-    .department-table th {
-      background-color: var(--secondary-blue);
-    }
-    .department-table tr:hover {
-      background-color: #f8f9fa;
-    }
-    .badge {
-      font-size: 0.8rem;
-      padding: 0.5em 0.75em;
-    }
-    @media (max-width: 768px) {
-      .navbar-brand span {
-        font-size: 1.1rem;
-      }
-      .btn-lg {
-        font-size: 1rem;
-      }
-    }
-  </style>
+
+    <style>
+        :root {
+            --primary-blue: #00274d;
+            --secondary-blue: #cfe2ff;
+            --accent-blue: #9ec5fe;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .navbar {
+            background-color: var(--primary-blue);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            border-left: 4px solid var(--primary-blue);
+            background: white;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+        }
+
+        .accordion-button {
+            background-color: var(--secondary-blue);
+            font-weight: 500;
+            color: var(--primary-blue);
+            border-radius: 8px !important;
+            margin-bottom: 0.5rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--accent-blue);
+            color: var(--primary-blue);
+            box-shadow: none;
+        }
+
+        .accordion-body {
+            padding: 0;
+        }
+
+        .department-table {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .department-table th {
+            background-color: var(--secondary-blue);
+        }
+
+        .department-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 0.5em 0.75em;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand span {
+                font-size: 1.1rem;
+            }
+
+            .btn-lg {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container d-flex justify-content-center">
-      <img src="https://www.pathwaysgurgaon.edu.in/assets/img/pathways-logo/pathway_logo.webp" 
-           alt="Pathways Logo"
-           style="height: 45px;">
-    </div>
-  </nav>
-  
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container d-flex justify-content-center">
+            <img src="https://www.pathwaysgurgaon.edu.in/assets/img/pathways-logo/pathway_logo.webp" alt="Pathways Logo"
+                style="height: 45px;">
+        </div>
+    </nav>
 
-  <!-- Main Content -->
-  <main class="container py-4">
-    <!-- Header Section -->
-    <div class="text-center mb-5">
-        <h1 class="display-6 fw-bold text-primary mb-3"><i class="bi bi-calendar-check-fill me-2"></i>PTSC Booking Portal</h1>
-        <p class="lead text-muted">Select a subject below to schedule your meeting</p>
-    </div>
 
-    <!-- Booking Cards Grid -->
-    <div class="row g-4">
-      <!-- Main Booking Card -->
-      <div class="col-12">
-        <div class="booking-card card h-100">
-          <div class="card-body d-flex align-items-center">
-            <i class="bi bi-calendar-check-fill text-primary fs-3 me-3"></i>
-            <div>
-              <h5 class="card-title mb-1">General Meeting Booking</h5>
-              <p class="card-text text-muted small">Book meetings with multiple teachers</p>
+    <!-- Main Content -->
+    <main class="container py-4">
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+            <h1 class="display-6 fw-bold text-primary mb-3"><i class="bi bi-calendar-check-fill me-2"></i>PTSC Booking
+                Portal</h1>
+            <p class="lead text-muted">Select a subject below to schedule your meeting</p>
+        </div>
+
+        <!-- Booking Cards Grid -->
+        <div class="row g-4">
+            <!-- Main Booking Card -->
+            <div class="col-12">
+                <div class="booking-card card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <i class="bi bi-calendar-check-fill text-primary fs-3 me-3"></i>
+                        <div>
+                            <h5 class="card-title mb-1">General Meeting Booking</h5>
+                            <p class="card-text text-muted small">Book meetings with multiple teachers</p>
+                        </div>
+                    </div>
+                    <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/"
+                        class="stretched-link"></a>
+                </div>
             </div>
-          </div>
-          <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/" 
-             class="stretched-link"></a>
-        </div>
-      </div>
 
-      <!-- Subject Cards -->
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-book subject-icon text-success"></i>
-            <h5 class="card-title d-inline">English L&L</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/ofG3RjoQY0ur9ZeY19rseQ2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-globe subject-icon text-info"></i>
-            <h5 class="card-title d-inline">Language Acquisition</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/k-7CqMXFOkyoVrd8V5gUSg2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-building subject-icon text-warning"></i>
-            <h5 class="card-title d-inline">Individuals & Societies</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/V8lrA34qTU-DzrOyI0nWQQ2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body d-flex align-items-center">
-            <!-- Science-related icon (closest to an atom) -->
-            <i class="bi bi-eyedropper text-danger me-2" style="font-size: 1.5rem;"></i>
-            <h5 class="card-title d-inline mb-0">Science</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/Nq8_BWMl-0GeTtsmH_SQjA2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      
-
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-calculator subject-icon text-primary"></i>
-            <h5 class="card-title d-inline">Mathematics</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/d4H1y7MJaE2y1Zk3j2voBA2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-palette subject-icon text-secondary"></i>
-            <h5 class="card-title d-inline">Design</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/HPmnlzA4R0OMD-C1PEFkjg2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-heart-pulse subject-icon text-danger"></i>
-            <h5 class="card-title d-inline">Physical & Health Education</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/UIs83XvUc0OYNZN80dhuog2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-palette subject-icon text-warning"></i>
-            <h5 class="card-title d-inline">Visual Arts</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/tlQfWVvbN0O5AuPlh-IPQg2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-music-note-beamed subject-icon text-success"></i>
-            <h5 class="card-title d-inline">Performing Arts</h5>
-            <a href="https://outlook.office365.com/book/PTSCTestPage@pathways.in/s/JjWd7l9V_0WRm_m3Ok0EJQ2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div><div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-lightbulb subject-icon text-info"></i>
-            <h5 class="card-title d-inline">Learning Support</h5>
-            <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/L5V-f1Je0EKwgQnK8F_lqA2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div><div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-book-half subject-icon text-primary"></i>
-            <h5 class="card-title d-inline">English Support</h5>
-            <a href="https://outlook.office365.com/book/PTSCTestPage@pathways.in/s/nn6CjSpYI0S86_NW0eGjVQ2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div><div class="col-md-4">
-        <div class="booking-card card h-100">
-          <div class="card-body">
-            <i class="bi bi-briefcase subject-icon text-danger"></i>
-            <h5 class="card-title d-inline">Guidance & Career Counsellor</h5>
-            <a href="https://outlook.office365.com/book/PTSCTestPage@pathways.in/s/k8OQ5IlWA0mqRrMtEQmYzg2" 
-               class="stretched-link"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="booking-card card h-100">
-            <div class="card-body">
-                <i class="bi bi-person-circle subject-icon text-primary"></i>
-                <h5 class="card-title d-inline">Student Counsellor</h5>
-                <a href="https://outlook.office365.com/book/PTSCTestPage@pathways.in/s/Z9VXAB5M-U-0OFUxFzjOMg2" class="stretched-link"></a>
+            <!-- Subject Cards -->
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-book subject-icon text-success"></i>
+                        <h5 class="card-title d-inline">English L&L</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/ofG3RjoQY0ur9ZeY19rseQ2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-globe subject-icon text-info"></i>
+                        <h5 class="card-title d-inline">Language Acquisition</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/k-7CqMXFOkyoVrd8V5gUSg2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-building subject-icon text-warning"></i>
+                        <h5 class="card-title d-inline">Individuals & Societies</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/V8lrA34qTU-DzrOyI0nWQQ2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <!-- Science-related icon (closest to an atom) -->
+                        <i class="bi bi-eyedropper text-danger me-2" style="font-size: 1.5rem;"></i>
+                        <h5 class="card-title d-inline mb-0">Science</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/Nq8_BWMl-0GeTtsmH_SQjA2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-calculator subject-icon text-primary"></i>
+                        <h5 class="card-title d-inline">Mathematics</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/d4H1y7MJaE2y1Zk3j2voBA2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-palette subject-icon text-secondary"></i>
+                        <h5 class="card-title d-inline">Design</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/HPmnlzA4R0OMD-C1PEFkjg2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-heart-pulse subject-icon text-danger"></i>
+                        <h5 class="card-title d-inline">Physical & Health Education</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/UIs83XvUc0OYNZN80dhuog2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-palette subject-icon text-warning"></i>
+                        <h5 class="card-title d-inline">Visual Arts</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/tlQfWVvbN0O5AuPlh-IPQg2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-music-note-beamed subject-icon text-success"></i>
+                        <h5 class="card-title d-inline">Performing Arts</h5>
+                        <a href="https://outlook.office365.com/book/PTSCTestPage@pathways.in/s/JjWd7l9V_0WRm_m3Ok0EJQ2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-lightbulb subject-icon text-info"></i>
+                        <h5 class="card-title d-inline">Learning Support</h5>
+                        <a href="https://outlook.office365.com/owa/calendar/PTSCTestPage@pathways.in/bookings/s/L5V-f1Je0EKwgQnK8F_lqA2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-book-half subject-icon text-primary"></i>
+                        <h5 class="card-title d-inline">English Support</h5>
+                        <a href="https://outlook.office365.com/book/PTSCTestPage@pathways.in/s/nn6CjSpYI0S86_NW0eGjVQ2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-briefcase subject-icon text-danger"></i>
+                        <h5 class="card-title d-inline">Guidance & Career Counsellor</h5>
+                        <a href="https://outlook.office365.com/book/PTSCTestPage@pathways.in/s/k8OQ5IlWA0mqRrMtEQmYzg2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="booking-card card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-person-circle subject-icon text-primary"></i>
+                        <h5 class="card-title d-inline">Student Counsellor</h5>
+                        <a href="https://outlook.office365.com/book/PTSCTestPage@pathways.in/s/Z9VXAB5M-U-0OFUxFzjOMg2"
+                            class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add remaining subject cards here -->
         </div>
-    </div>
-    
-      <!-- Add remaining subject cards here -->
-    </div>
-<BR></BR>
-<BR></BR>
+        <BR></BR>
+        <BR></BR>
         <!-- Main Container -->
-        <div class="container mt-4">
-            <h3>Online Meeting Links</h3>
-            <div class="accordion" id="teamsAccordion">
-        <!-- L&L Department -->
-        <div class="accordion-item">
-            <h3 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLL">
-                    L&L 
-                </button>
-            </h3>
-            <div id="collapseLL" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-                <div class="accordion-body">
-                    <div class="table-responsive">
-                        <table class="department-table table table-hover align-middle">
-                            <thead>
-                                <tr>
-                                    <th>Teacher</th>
-                                    <th>Subject</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Deepshikha Dhawan</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Harpreet Kaur</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Kavita Govil</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Parul Verma</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Payal Dan</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Renuka Luthra</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Shalini Pal</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Shweta Khurana</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Angela Nduku Njoroge</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Sakshi Bedi</td><td>L&L</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- LA Department -->
-        <div class="accordion-item">
-            <h3 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLA">
-                    LA 
-                </button>
-            </h3>
-            <div id="collapseLA" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-                <div class="accordion-body">
-                    <div class="table-responsive">
-                        <table class="department-table table table-hover align-middle">
-                            <thead>
-                                <tr>
-                                    <th>Teacher</th>
-                                    <th>Subject</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Astha Sachdeva</td><td>Spanish</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Deepika Sharma</td><td>French</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Gilles Georges Balandier</td><td>HOD LA</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Nandita Raina</td><td>French</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Rakhim Ebrams</td><td>French</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Ruby Rana</td><td>Spanish</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Shafali Handa</td><td>Spanish</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Shailja Kashyap</td><td>Spanish</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Shobha Tayal</td><td>Hindi</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                <tr><td>Shweta Dangi</td><td>Hindi</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-     <!-- I&S Department -->
-     <div class="accordion-item">
-        <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIS">
-                I&S 
-            </button>
-        </h3>
-        <div id="collapseIS" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-            <div class="accordion-body">
-                <div class="table-responsive">
-                    <table class="department-table table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Teacher</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Alka Singh</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Deepti Katta</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Dhwani Chugh</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Juhi Bakshi</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Pallabika Das</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Rajeev Sharma</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Ritu Pant</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Ritu Yadav</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Shweta Shahi</td><td>I&S</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-                <!-- Science Department (Updated) -->
-    <div class="accordion-item">
-        <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseScience">
-                Science 
-            </button>
-        </h3>
-        <div id="collapseScience" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-            <div class="accordion-body">
-                <div class="table-responsive">
-                    <table class="department-table table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Teacher</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Indu Dudeja</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Pawan Kumar</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>T.O Jeena</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Varsha Sinha</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Debiparna Bhattacharya</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Dimple Ahuja</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Gurpreet Sodhi</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Vigya Chauhan</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Kshama Sharma</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Namita Acharya</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Shruti Sharma</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Vandana Kumari</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Abhishek Dubey</td><td>Science</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Mathematics Department -->
-    <div class="accordion-item">
-        <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMathematics">
-                Mathematics 
-            </button>
-        </h3>
-        <div id="collapseMathematics" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-            <div class="accordion-body">
-                <div class="table-responsive">
-                    <table class="department-table table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Teacher</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Ambuj Verma</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Shilpa Luthra</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Gabriel Gulati</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Harpreet Kaur (M)</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Mansi Grover</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Rachna Yadav</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Swati Sharma</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Utsava Khare</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Vineet Kumar</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Vishal Sharma</td><td>Mathematics</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Design & Technology Department -->
-    <div class="accordion-item">
-        <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDesign">
-                Design 
-            </button>
-        </h3>
-        <div id="collapseDesign" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-            <div class="accordion-body p-0">
-                <table class="department-table table table-hover align-middle">
-                    <thead>
-                        <tr>
-                            <th>Teacher</th>
-                            <th>Subject</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Disha Kalra</td><td>Design</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        <tr><td>Jean Carlo</td><td>Design</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        <tr><td>Mukesh Bairwa</td><td>Design</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        <tr><td>Niharika Singh</td><td>Design</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        <tr><td>Shubhrum Pun</td><td>Design</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        <tr><td>Vimi Kaul</td><td>Design</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
-     <!-- PHE Department -->
-     <div class="accordion-item">
-        <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePHE">
-                PHE 
-            </button>
-        </h3>
-        <div id="collapsePHE" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-            <div class="accordion-body">
-                <div class="table-responsive">
-                    <table class="department-table table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Teacher</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Karan Bahadur Singh</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Khoirom Sanayaima Singh</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Sachin Kumar Tyagi</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Shailendra Pratap Singh Tomar</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Arun Bhandari</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Komal</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Rahul Yadav</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Dr. Manish Gogia</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Pardeep Negi</td><td>PHE</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        </tbody>
-                    </table>
-                </div>
+        <!-- Main Container -->
+        <div class="container mt-4" style="max-width: 800px;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-primary mb-0" style="font-weight: 600; letter-spacing: -0.5px;">Online Meeting Links
+                </h3>
+                <a href="https://forms.office.com/r/mjGhk5rv57" class="btn btn-success shadow-sm"
+                    style="border-radius: 20px; padding: 8px 20px; transition: all 0.3s;" target="_blank">
+                    Feedback
+                </a>
             </div>
-        </div>
-    </div>
-    
-   
-   
-    
+            <div class="accordion" id="teamsAccordion">
+
+
+
+
+
+
+                <!-- Language & Literature Department -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLL1" aria-expanded="false" aria-controls="collapseLL1">
+                            Language & Literature (L&L)
+                        </button>
+                    </h3>
+                    <div id="collapseLL1" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Teams Link</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Deepshikha Dhawan</td>
+                                            <td>Language and Literature</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTEwNTBjNzgtNzYyYS00MTczLTliMGMtMDNmNDMwNjRiNzk3%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22004285ee-6f5a-48fc-b0a5-418b60a76a32%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Sakshi Bedi</td>
+                                            <td>English L&L</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTY4ZjAxNzQtY2YxOS00MWFjLWExYjEtNzk2NWE1ZDU4MDkx%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2249f2a8bd-ca44-4ac0-8e89-666a44295fd1%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Shalini Pal</td>
+                                            <td>English</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTdkNjc1NjEtZTA0Yi00NmI3LWEyY2UtZTA2ZTQ4MGIwYWI1%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22cd19972c-7b75-4774-b228-56c70039fcb7%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Harpreet Kaur1</td>
+                                            <td>English</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDVmYTg3ZmEtZjM0Zi00NmRiLWE0NWMtNmMyYzU5YjlmMGVj%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%222403708a-fbce-4972-946c-92a279c13980%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Kavita Govil</td>
+                                            <td>Language and Literature</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTVlNjA1ODQtNDRlYy00ZmMzLWJmOWUtZTEwZWJiYzVkNTFi%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22a0e1320a-6022-44fe-aa5f-9fa9b64fc55e%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Shweta Khurana</td>
+                                            <td>L and L</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGZhMDFlYzctYmUxMi00NWMzLTkwYmYtOTVmOWM1ZGU3NWU3%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2229394a10-ffc1-40c2-b6fb-0ca25b8ba211%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Renuka Luthra</td>
+                                            <td>ENGLISH L&L</td>
+                                            <td><a href="https://shorturl.at/aojAg" class="btn btn-primary btn-sm"
+                                                    target="_blank">Join Meeting</a></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Parul Verma1</td>
+                                            <td>English L&L - MYP</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODcwNWIxNmMtZjNhMC00NjY5LWIwZTEtODNlZTBiMjVkZGVh%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22eeb240e6-bd06-450c-aaee-83e71d12261a%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Payal Dan</td>
+                                            <td>English L & L</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_OWQ0MjBjM2QtODFjYy00MzNkLWEwYTgtMGJlY2Q3OTBlYTYz%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2259ba0d1f-e8ec-4914-b0d4-45e5052e7607%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Angela Nduku Njoroge</td>
+                                            <td>English</td>
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGMyMTQ0MDctOTg5MS00OTk0LTlhOTUtOGM0NmMyZTE1Yzll%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22d4142448-0ad9-4690-a6db-e448178127a2%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- LA -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLA1" aria-expanded="false" aria-controls="collapseLA1">
+                            LA</button>
+                    </h3>
+                    <div id="collapseLA1" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Teams Link</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>Astha Sachdeva</td>
+                                            <td>Spanish</td>
+
+                                            <td> <a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2M4YjFlYTItYThmMy00OTY5LWFlYjMtMDU2OTNhNGZlOTYy%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22fa011841-0cc4-4f02-abfa-e085319819f1%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join
+                                                    Meeting</a></td>
+
+                                        <tr>
+                                            <td>Deepika Sharma</td>
+                                            <td>French</td>
+
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWRmMzhiOTMtYWZiOS00NzAxLWJiMGEtZGUzZjBhZTNmMjUw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22ad8a0650-1582-48e1-ba0f-5ce755852d85%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+
+                                        <tr>
+                                            <td>Gilles Georges Balandier</td>
+                                            <td>HOD LA</td>
+
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2VmZDE3MDYtMTVlZS00OWNhLTg1YjAtZTM2NzhiOTQzMGQy%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%226ee4ed03-b009-4d29-a39b-56460ad78219%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+
+                                        <tr>
+                                            <td>Nandita Raina</td>
+                                            <td>French</td>
+
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDc1YzU4MzItYmIzYS00MDcxLThhZmItMTdjNGNmM2EwNWY3%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2296d49dfd-4d20-46c0-b66b-21e16ba6e728%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        <tr>
+                                            <td>Rakhim Ebrams</td>
+                                            <td>French</td>
+
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzlkMTE2YWEtNTQ2MC00NzMyLTk4MzQtNTYzYTliNTZhN2E0%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22a4fd2e64-5054-4a96-8bee-512554484b61%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        <tr>
+                                            <td>Ruby Rana</td>
+                                            <td>Spanish</td>
+
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_NThmOTYwZjEtOTAwMC00YjY2LWEzZGUtMDRhYzVmOGRhOWNh%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22f0656bf5-8533-4ee5-9716-a19338b76566%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        <tr>
+                                            <td>Shafali Handa</td>
+                                            <td>Spanish</td>
+
+                                            <td><a href="https://msteams.link/4WMP" class="btn btn-primary btn-sm"
+                                                    target="_blank">Join Meeting</a></td>
+
+                                        <tr>
+                                            <td>Shailja Kashyap</td>
+                                            <td>Spanish</td>
+
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2FiNjA1ZjAtMDYyMy00MWI5LWI0N2EtMWJhZDUzNTVlZWEx%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%229c2dac56-56c1-4143-8e80-9b2f95fe70d3%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        <tr>
+                                            <td>Shobha Tayal</td>
+                                            <td>Hindi</td>
+
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzhlNDYzMDQtNzg2Yy00MjZhLWE1NGEtNzUyNWJjYTdjZGIw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22afda1345-1aeb-460e-ae9b-a8804e9cfc0c%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+                                        <tr>
+                                            <td>Shweta Dangi</td>
+                                            <td>Hindi</td>
+
+                                            <td><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjQxMTQ5ODMtMmI3OS00NDIwLWE5YzUtMmQ2YzY1ZjMzMGZk%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2273e41bdf-33e1-405d-858a-228cd25080f9%22%7d"
+                                                    class="btn btn-primary btn-sm" target="_blank">Join Meeting</a>
+                                            </td>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- I&S Department -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseIS">
+                            I&S
+                        </button>
+                    </h3>
+                    <div id="collapseIS" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="department-table table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher</th>
+                                            <th>Subject</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Alka Singh</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTk4NDg3ODUtMDI5Yy00ZDUzLWI1YjUtZjlmZWUwMjNiZDQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22dba379fc-9265-486c-bd87-049586ab2d8e%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deepti Katta</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGQzOWIxOGMtNTNlMS00YjljLTkzOGItZGI3OWY1YzVkNGE4%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22f3f42b02-281f-4aab-8955-6fa087f043d1%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dhwani Chugh</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTk5YWIyZmMtNzA3Yi00ZDgwLWEwZTEtMDRjOWEwOTA2YWNi%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22507970f3-9df6-4618-b416-3d60938ff4be%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Juhi Bakshi</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODU3YWExZDgtN2E0NC00ZjVlLWE3ZDAtMTM3ODQxMDY1NjM1%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22860d866a-a784-4bd4-8da6-701611580c39%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pallabika Das</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzY0OWE4ZGItOWQwMC00NWRkLTk5NGYtZTUwMDA3MDZjODNm%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%221d7474fe-eb3d-439f-aedc-6cbfbccb8a7f%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rajeev Sharma</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWUxYWFkOTAtNGJiNi00YzgyLWI4Y2ItNDZmNzc3NDNhZGI2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%221e8d6e39-5e6d-4e5f-bc18-a1dc2fd38e0f%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ritu Pant</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODhmZmU1YjYtM2FiMy00NGMwLTk0NTQtZGE1ODNkYTJkMWMx%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2248c73d14-af16-47b3-be78-adbe08bcca15%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ritu Yadav</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDhmMWMyMzUtNWY1Ny00ODQ3LWE3MzEtNTJmMjAyZGRlZmEy%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2282eb83f0-1293-4fc3-835e-fc63b7670993%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shweta Shahi</td>
+                                            <td>I&S</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGI1Njk1ZjktMjhkMi00NzNmLTgxOTktZTllNjk3NTE0YTY1%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22fe778650-9859-4c32-bd30-c27a10976bf1%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Science Department (Updated) -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseScience">
+                            Science
+                        </button>
+                    </h3>
+                    <div id="collapseScience" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="department-table table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher</th>
+                                            <th>Subject</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Indu Dudeja</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTAwMGM0MmEtNTA5Ni00ODY4LWFhNzMtNjlmOGYyZjI4NGZh%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22a7efd66d-9a57-418f-bf85-3c7672e33410%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pawan Kumar</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODZjMTZlOTItNWM3My00OTBmLWIyOGUtN2JjMjg5NGRhZmI2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%221e7ac7b0-0357-408f-9218-fac30fbef1e6%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>T.O Jeena</td>
+                                            <td>Science</td>
+                                            <td><a href=https://shorturl.at/sWFG9 class="badge bg-primary">Join
+                                                    Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Varsha Sinha</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjM2NjA0ZTEtZjQyOS00ZDQwLTg4NWQtN2MzZmMyODhjMDNi%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2282e36268-05b3-42cc-b127-cfaaa79c5684%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Debiparna Bhattacharya</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzFkYjI3MzItNTZjNy00ODg3LWE4NmEtMDc1NzUwNjk2MDAw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22c7a831bf-a9fa-4496-b100-f1ead2bb20f3%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dimple Ahuja</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzNhYmE5OTUtZTk0NS00ZDE1LWIxYmYtMWNkZGVhZDViZGQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22e4dcabb2-7610-433b-b083-5ce13064cc4f%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gurpreet Sodhi</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmIyNDQ5NzUtMmM5MS00NzMwLWFiMDgtYTE4MzFkNzYyN2U2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%223bc60382-80dc-4de6-9ea3-433c7976792a%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                                ></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vigya Chauhan</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWRjMDdlZTgtYTM1ZS00ZjIyLTliNGQtYzFiNjg2MWNjYjNh%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22df00576f-8d0b-4b09-8bae-7c4edba54a40%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kshama Sharma</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjEyZDgxZDUtMjhjNi00NDU0LTk4ZjMtYjY4MmM4NzU5NTVi%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22dc1244c1-5451-42e5-9505-c12edde3f462%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Namita Acharya</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmY1NDBkNWUtOTIzOS00ODJjLTg3NTktZjc2NDA5NGRiNTIw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2241772970-ed2a-489b-9fd8-43dd680e95ec%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shruti Sharma</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGZkZTY4MTYtNWRiZi00MGY3LTgyYzUtM2Y4ZjcwZjVhZDcy%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22cc7ca5ca-78c5-4960-a2ec-58159bc41c20%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vandana Kumari</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_Mjg2ODM2NmItZjU2MC00NzRiLWE5YjQtNTk0YWY2ZDg2MGEz%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%223b350e14-9850-4248-8998-ae3f3dd4e997%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Abhishek Dubey</td>
+                                            <td>Science</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjU0YmVlY2QtYzFkYy00MTkzLTlmNmMtNmViYjNlMzg4YTE2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22c89d37c8-9b10-43b9-a961-ec13605bf09c%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mathematics Department -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseMathematics">
+                            Mathematics
+                        </button>
+                    </h3>
+                    <div id="collapseMathematics" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="department-table table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher</th>
+                                            <th>Subject</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ambuj Verma</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODE5MjI3ODAtOGE2NS00NzI2LWI3Y2YtNjZjMjJkNjc3YWM0%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%221560aee5-ad66-48f7-9151-8aab4fa0d6ef%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shilpa Luthra</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTJkNzQyZjQtMzYwMS00YThiLTk1ZjktMWQ1N2E2NDNhMWZh%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22c97b3094-2139-4c58-9f65-5a1580709545%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gabriel Gulati</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjRlMWU3NGYtMmE3OS00MzI2LTlmOGItNGFhYmJiYjBmNDVh%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%222790f8e5-479c-4775-898a-9ffaa474e75a%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Harpreet Kaur (M)</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmM4MmJhMjgtOGIyNC00ODNiLWIyNzMtMWJhZTI2Mjg3YTc0%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2284ef7d71-1c5a-4d67-91cc-8c5510aa2b78%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mansi Grover</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjRhZmZkYWQtOTUzZS00NTczLThiYWItZDBjODU3Zjg1NzBj%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22004ce14f-4d77-4c04-8bbd-3c0667bb6780%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rachna Yadav</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmExNzUzYTQtNzFhMS00MmMxLWIyZWMtNmMzZDE1ZDMzMDU5%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2274a08e2b-6b64-44e3-be32-ebaf6b818539%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Swati Sharma</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmNjMTRmMDctMTJlMC00MmVlLWE5NWYtZTAxZDVmY2I3ZTlk%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2293de0f1a-3073-4961-8df0-666e99c4e413%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Utsava Khare</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWM3N2QxZmQtNWE2Ny00YjM2LWIyYjktNjU1OTBhNmNhOTg3%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2229244539-6e6e-4726-a754-0f13fc631967%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vineet Kumar</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzhiZGQyZDAtY2ExOS00YjhjLWIyMGUtMWUxNzRhOWVjZjQ2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%226b628123-c081-4a04-a723-6a01f3328f7c%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vishal Sharma</td>
+                                            <td>Mathematics</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MGRkOWY1ODctZjg1NS00Zjc5LWEzZmMtMDBjMjA0ODNlODA4%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22e5cd1a77-0521-462f-94a4-3db42c2ce57b%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Design & Technology Department -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseDesign">
+                            Design
+                        </button>
+                    </h3>
+                    <div id="collapseDesign" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body p-0">
+                            <table class="department-table table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Teacher</th>
+                                        <th>Subject</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Disha Kalra</td>
+                                        <td>Design</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmZjNDA1NDgtYWUzNC00MDMzLWE3MWUtMDEyMjg0NjA5YWM4%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22f9307b76-c8c8-454e-ad24-0de18000ecc6%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jean Carlo</td>
+                                        <td>Design</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NWU2ODhiNWItMzQwZC00YjdlLTk3NmUtMmVhMjk2ZjgyNmIw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%229a56515f-00cd-4838-b3be-781b9f7cd1a2%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mukesh Bairwa</td>
+                                        <td>Design</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTE5MDRmMDEtOWI5Yi00YzMxLTk2OWMtOTNlMzM1MTUyYTI1%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%220f525417-ce34-44aa-9b7c-ecd838a8e6cb%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Niharika Singh</td>
+                                        <td>Design</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTgyZGNiMWYtNDYzYy00MmJlLWEzODQtNmZiMmZhMGRmYjJj%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22658a5aef-8863-4d1d-b933-ae24916807c1%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shubhrum Pun</td>
+                                        <td>Design</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTA3ODk2NDEtOWZmNy00NWY2LWJlMWMtNDcwNzU0ZTBmMzQz%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22cc511cb8-fce6-451d-aafb-332af48c6221%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vimi Kaul</td>
+                                        <td>Design</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmY2YTYyODgtYTg0Ni00Nzc5LWIzNDktYjAzYmUzODBiNzIw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22e5a2c243-c85e-445a-9246-1698297fbb06%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHE Department -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapsePHE">
+                            PHE
+                        </button>
+                    </h3>
+                    <div id="collapsePHE" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="department-table table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher</th>
+                                            <th>Subject</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>Khoirom Sanayaima Singh</td>
+                                            <td>PHE</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDJlYjU0N2YtZTQ5Ny00ZjJlLWE5ODUtZDI5YWMxOWI4ZmVh%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22e76a1e36-44b5-46b1-b7c2-962472fe7be8%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sachin Kumar Tyagi</td>
+                                            <td>PHE</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDg1YTZhOGEtYWRhNy00YTk0LTkzYWMtMWQ3NjJmODhmNGM3%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%223339470e-312d-423c-baca-543e5bb766f2%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shailendra Pratap Singh Tomar</td>
+                                            <td>PHE</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGNhYWRlMzEtOTEyMi00ZTg0LWJkMGItMjBiMWE5Mjk4ZjU5%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22dbe862c4-ccc4-4f65-8ca2-f442db5b648f%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Arun Bhandari</td>
+                                            <td>PHE</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTBiMDRjYjAtOGQ0My00ZGI2LTk1ZjctMTA0M2E2ZDFjODIw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%226f6f3e3a-2ad7-49ea-8355-82176eb507a6%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Komal</td>
+                                            <td>PHE</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YmVlYTVkMGEtYzNmMy00OTc4LTk3N2YtNDdhZDIwYjk0ZTkw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22baf768db-f66f-434b-b408-e27328f0d57d%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rahul Yadav</td>
+                                            <td>PHE</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzBlNDE0ZmItODVjYS00ZWJlLTllNzEtMDA2ZmJiM2FlNDQw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22a7763480-43ae-450f-a7c3-1bc0733bc5b4%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Pardeep Negi</td>
+                                            <td>PHE</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGQ2ZWJjZjQtMjgxNi00NzhlLTgyYTgtZTFkYTFjMDVlODg2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2217aa84d4-87bb-4e39-b717-7e153499df14%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
                 <!-- Department Template -->
                 <div class="accordion-item">
                     <h3 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVA">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseVA">
                             Visual Arts
                         </button>
                     </h3>
@@ -519,59 +974,167 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td>B Bodh</td><td>Visual Arts</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                      <tr><td>Bhairab Bonia</td><td>Visual Arts</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                      <tr><td>Kana Ram Lomror</td><td>Visual Arts</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                      <tr><td>Rahul Kumar</td><td>Visual Arts</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                      <tr><td>Sangita Pramanik</td><td>Visual Arts</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                      <tr><td>Sourav Podder</td><td>Visual Arts</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                      <tr><td>Subhasri Roy</td><td>Visual Arts</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                      <tr><td>Veeravasarapu Suryanarayana</td><td>Visual Arts</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                    </tbody>
+                                    <tr>
+                                        <td>B Bodh</td>
+                                        <td>Visual Arts</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDRjYjM2YWItMDI1Ni00YTI2LWExMDgtZWNkNzY2ZjIyNDkw%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22fc1e9833-64f7-491e-b41a-1e88198ef9d6%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bhairab Bonia</td>
+                                        <td>Visual Arts</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDU1ZTkwN2YtZDBmNy00NWJmLWI3MjAtOTgyMzcyZjIwYTM0%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%228666bdba-54da-4175-824e-224ef9517762%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kana Ram Lomror</td>
+                                        <td>Visual Arts</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjFjMmFkM2YtOWRlOC00MzZiLThhNWYtOTc4NTBlZTMzNDA2%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%226ea3d024-58fe-41ad-906a-d0ee77008fa5%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rahul Kumar</td>
+                                        <td>Visual Arts</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTQ0OTJkNmQtNzlhNi00ZjcyLWIyYzctOWE0NzAxODlkNTA5%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%221e01a9d5-1a62-452b-9d3c-c27d05da64c2%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sangita Pramanik</td>
+                                        <td>Visual Arts</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzAzOWEyZjgtMWQ0OS00NTlhLTg3ODgtZGEyMjYzMzhiZmQ3%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22cac1cf4b-d597-47ee-9f70-f2d19de5df10%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sourav Podder</td>
+                                        <td>Visual Arts</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2UzZjg3NzctNzA2Ny00YzFkLTgxMDAtNWEwY2E4YjZlOGUz%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22f066732c-2ba3-4c49-a92e-d043ef975420%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subhasri Roy</td>
+                                        <td>Visual Arts</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWY0OWUyYWUtMWI4Mi00ZWMzLWE5MzItZGYwNGVlNDY4MTE0%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22eef1e85d-91eb-42ab-8c0b-13226430d635%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Veeravasarapu Suryanarayana</td>
+                                        <td>Visual Arts</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODUxZTI2YzEtMzhiYi00YTU2LWE3YmQtNDcyY2QyYjZhNDRl%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%223ab456b4-a0d5-4e70-b7e4-37e5fb689ba6%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-    <!-- PA Department -->
-    <div class="accordion-item">
-        <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePA">
-                PA 
-            </button>
-        </h3>
-        <div id="collapsePA" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-            <div class="accordion-body">
-                <div class="table-responsive">
-                    <table class="department-table table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Teacher</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Aakriti Jain</td><td>Dance</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Akash Mallick</td><td>Dance</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Ram Pradeep</td><td>Dance</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Arunava Chatterjee</td><td>Music</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Nitesh Chandelkar</td><td>Music</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Sangat Sangpang</td><td>Music</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Santanu Mallick</td><td>Theatre</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Gazal Saharawat</td><td>Theatre</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Vivek Tyagi</td><td>Theatre</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Nilesh Pathak</td><td>Music</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        </tbody>
-                    </table>
+                <!-- PA Department -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapsePA">
+                            PA
+                        </button>
+                    </h3>
+                    <div id="collapsePA" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="department-table table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher</th>
+                                            <th>Subject</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Aakriti Jain</td>
+                                            <td>Dance</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTAwNGUwNTktYTRhMC00OTE1LWJhNTYtZDhmOTYzZjJlYTM4%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22728531e2-3550-4766-84ae-9a031b49d41b%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Akash Mallick</td>
+                                            <td>Dance</td>
+                                            <td><span class="badge bg-primary">Join Meeting</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ram Pradeep</td>
+                                            <td>Dance</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjZhYWJkZGItYzYxNy00YWY0LTgyYTEtNjE0ZjYzMDBkYWY5%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%228292ed18-cb54-4601-9d48-2e4698590fe9%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Arunava Chatterjee</td>
+                                            <td>Music</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGM3NDQwZjAtYTg2MS00NDUxLWExYzUtMmExOWYwNjY4YTQ1%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2223449ddc-20e6-4fc3-ac2e-4d9a3f87f05a%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nitesh Chandelkar</td>
+                                            <td>Music</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MmE0ZjYyMjctMzFmNy00YmVlLTkzZWEtYzkwNTE1MmI0NDI4%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%225afd78c3-ae53-4a20-b85a-514ff554986e%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sangat Sangpang</td>
+                                            <td>Music</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_Njc5YzczNzQtNTQxYi00Y2Q4LWI0OTktY2RkZWJhYzc0MzEx%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2235880cb3-8fbd-4b0f-98b3-cdcd6abb4ba1%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Santanu Mallick</td>
+                                            <td>Theatre</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTExNmMwNTYtYTMwOC00M2RiLWIyYzUtMDQ0YTJlNDQ4NGIz%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22af5c9ff6-4bed-4d02-a56e-7594f6a27152%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gazal Saharawat</td>
+                                            <td>Theatre</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_NDkwNGJkOTMtODlhMi00NDRhLTgxZWItNjUxMjViYWZhN2Yz%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%222ea002c2-0c4b-4d0d-8b33-c2b72f02ce86%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vivek Tyagi</td>
+                                            <td>Theatre</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGQ1YTVkYmMtNGQyYy00ODE2LTllZDUtMWU1MGQ0OTgxZWI1%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22ddeff033-e0f9-4afb-be54-bfcdbdddc2bb%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nilesh Pathak</td>
+                                            <td>Music</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGM3NDQwZjAtYTg2MS00NDUxLWExYzUtMmExOWYwNjY4YTQ1%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2223449ddc-20e6-4fc3-ac2e-4d9a3f87f05a%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    
+
                 <!-- ALS & English Support -->
                 <div class="accordion-item">
                     <h3 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseALS">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseALS">
                             Learning Support
                         </button>
                     </h3>
@@ -586,12 +1149,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td>Roopa Pathania</td><td>LS</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                    <tr><td>Deepshikha Sharma</td><td>LS</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                    <tr><td>Ritika Guliani</td><td>LS</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                    <tr><td>Sagarika Mohanty</td><td>LS</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                    <tr><td>Sarika Das</td><td>LS</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                                    
+                                    <tr>
+                                        <td>Roopa Pathania</td>
+                                        <td>LS</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWY1NmRjNWUtMGM1Yy00MDljLTg2Y2QtOThjMDRjYzI0YzVm%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%223e6781c9-9feb-4151-a165-4a164edf7209%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deepshikha Sharma</td>
+                                        <td>LS</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWI1Y2ZiOTctNmYyMi00MGRiLWFiZWMtNzEyNmFiZmU0ZmY4%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2279695c4a-9af4-4b25-adaf-ace5d1915cf8%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ritika Guliani</td>
+                                        <td>LS</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDgwZjllNjQtYzA1Yy00OGI0LWI3MGMtZmJiYWJhYzA4MDVl%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%221a212290-3468-47fb-8432-4f04f2e61c6f%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sagarika Mohanty</td>
+                                        <td>LS</td>
+                                        <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjJjYWJjOTQtMTFmYS00MDc2LWFmNDAtNzU5NTFiZmFkMjRk%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2231289b63-240c-4a29-89d6-5a461edc4363%22%7d
+                                                class="badge bg-primary">Join Meeting</a>
+                                        </td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -599,11 +1185,13 @@
                 </div>
                 <div class="accordion-item">
                     <h3 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEnglishSupport">
-                            English Support & LA 
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseEnglishSupport">
+                            English Support & LA
                         </button>
                     </h3>
-                    <div id="collapseEnglishSupport" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
+                    <div id="collapseEnglishSupport" class="accordion-collapse collapse"
+                        data-bs-parent="#teamsAccordion">
                         <div class="accordion-body">
                             <div class="table-responsive">
                                 <table class="department-table table table-hover align-middle">
@@ -615,75 +1203,113 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>Radhika Sharma</td><td>English Support & LA</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
+                                        <tr>
+                                            <td>Radhika Sharma</td>
+                                            <td>English Support & LA</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjMzZGYzZTYtNTZiMi00N2VmLWI1MGMtMDE1YTNmNWQ3MWYz%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%2234fc3f42-a6cf-4654-a943-4cc76e0e6de4%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-    <!-- Student Counselor Department -->
-    <div class="accordion-item">
-        <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStudentCounselor">
-                Student Counselor 
-            </button>
-        </h3>
-        <div id="collapseStudentCounselor" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-            <div class="accordion-body">
-                <div class="table-responsive">
-                    <table class="department-table table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Teacher</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Bhuvanesware BG</td><td>Student Counselor</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Divya Sharma</td><td>Student Counselor</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                            <tr><td>Megha Mathur</td><td>Student Counselor</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        </tbody>
-                    </table>
+
+                <!-- Student Counselor Department -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseStudentCounselor">
+                            Student Counselor
+                        </button>
+                    </h3>
+                    <div id="collapseStudentCounselor" class="accordion-collapse collapse"
+                        data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="department-table table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher</th>
+                                            <th>Subject</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Bhuvanesware BG</td>
+                                            <td>Student Counselor</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzMwNDVkMmItNzczNS00ODJjLWI0MzctYTEwODJlYjRkYTY1%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22d1893675-8e84-4622-aa82-a37d38aedb57%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Divya Sharma</td>
+                                            <td>Student Counselor</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzQ4ODQzYTktYzRlNy00ZDYxLTlkM2QtMmNhNzQ1ZWJjYWFm%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%227641adaf-0c60-419a-8b27-bef88bfee429%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Megha Mathur</td>
+                                            <td>Student Counselor</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGUxOGM3ZmYtZWViMy00N2ZmLTlkZGItNzcwZTEyMzNkNDAy%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22d9ea3228-6ad6-44f7-a916-058d54bf4271%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guidance & Career Counsellor Department -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseGuidanceCounselor">
+                            Guidance & Career Counsellor
+                        </button>
+                    </h3>
+                    <div id="collapseGuidanceCounselor" class="accordion-collapse collapse"
+                        data-bs-parent="#teamsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="department-table table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher</th>
+                                            <th>Subject</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Anshu Dhingra Die</td>
+                                            <td>Guidance & Career Counsellor</td>
+                                            <td><a href=https://teams.microsoft.com/l/meetup-join/19%3ameeting_OWM3ODcxNTItMmM2Yi00N2Y2LWFkNTEtZThmNWQ1ODQ1YWEy%40thread.v2/0?context=%7b%22Tid%22%3a%2272cb69df-e08b-4bf5-992b-418f1da31e86%22%2c%22Oid%22%3a%22f49b24e4-706e-4256-a1e0-8f435b968377%22%7d
+                                                    class="badge bg-primary">Join Meeting</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Guidance & Career Counsellor Department -->
-    <div class="accordion-item">
-        <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGuidanceCounselor">
-                Guidance & Career Counsellor 
-            </button>
-        </h3>
-        <div id="collapseGuidanceCounselor" class="accordion-collapse collapse" data-bs-parent="#teamsAccordion">
-            <div class="accordion-body">
-                <div class="table-responsive">
-                    <table class="department-table table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Teacher</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Anshu Dhingra Die</td><td>Guidance & Career Counsellor</td><td><span class="badge bg-secondary">Coming Soon</span></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    
-    
-            </div>
+
+
+
+        </div>
         </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
